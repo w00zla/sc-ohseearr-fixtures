@@ -1,21 +1,28 @@
 # sc-ohseearr-fixtures
 
-Test frames for the readers of [sc-ohseearr](https://github.com/w00zla/sc-ohseearr): single frames of the
-maintainer's own debug recordings of Star Citizen, each with the cursor the recording stored. sc-ohseearr's reader
-tests read them through its submodule `fixtures/` and assert what the frames show (values checked by hand).
+Test frames for the readers of [sc-ohseearr](https://github.com/w00zla/sc-ohseearr): single frames of Star Citizen
+from debug recordings, each with the cursor position recorded with it. sc-ohseearr includes this repository as its
+submodule `fixtures/`; the readers' tests read the frames and assert what they show.
 
-| Folder | Reader | Frames |
-|---|---|---|
-| `gear-inventory/` | the character inventory | 2 at 3840×1600, 4 at 1920×1080 |
-| `refinery/` | the refinery terminal | 3 at 3840×1600, 4 at 1920×1080 |
-| `warehouse/` | the warehouse (item bank) | 3 at 3840×1600, 4 at 1920×1080 |
+## Layout
 
-Each folder's `NOTES.md` names the recording, the date and the game build of every frame. A frame is
-`<recording id>-read-<n>.jpg` (JPEG q90, as the companion app recorded it) with `<recording id>-read-<n>.json`
-(`{"cursor": [x, y]}`, in frame pixels, or `null`).
+One folder per reader, named like the reader in sc-ohseearr's `readers/` (`gear-inventory/`, `refinery/`,
+`warehouse/`). Each folder's `NOTES.md` lists its frames: recording, date, game build, resolution and what the frame
+shows.
 
-**Only small sets of single frames go here**, never whole recordings, screenshot folders or files extracted from the
-game.
+A frame is `<recording id>-read-<n>.jpg` (JPEG as recorded) with `<recording id>-read-<n>.json`: `{"cursor": [x, y]}`
+in frame pixels, or `{"cursor": null}`.
+
+## Adding frames
+
+- Frames come from an app's debug recordings (what a reader gets live: the grab with its cursor), not from
+  screenshots, and from your own play sessions.
+- Single frames only: up to ~1 MB each, a few MB per reader. Never whole recordings, screenshot folders or files
+  extracted from the game.
+- Cut the recording's JSON down to the cursor: no paths, names or other personal data.
+- Add a row per frame to the reader's `NOTES.md`. Every value a test asserts is checked by hand against the frame.
+- Most useful: resolutions, screens and states a reader's frames do not cover yet.
+- In sc-ohseearr, move the submodule to the new commit together with the tests that use the frames.
 
 ## Licence
 
